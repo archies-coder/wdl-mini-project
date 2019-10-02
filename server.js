@@ -1,20 +1,46 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const mysql = require('mysql')
+const sql = require('./db')
+const options = require('./app/config/keys')
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const path = require('path')
 
 const app = express();
+app.use(bodyparser.json())
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
 
-const connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'testing1'
+const sessionStore = new MySQLStore({},sql);
+app.use(session({
+    key: 'session_cookie_name',
+    secret: 'session_cookie_secret',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge : 365*24*60*60*1000
+    }
+}));
+
+app.get('/',(req,res)=>{
+    sql.query('SELECT * FROM users;',(error, response)=>{
+        console.log(error)
+        res.send(response + 'hello')
+    })
 })
 
-connection.connect(()=>{
-    console.log('connected to db')
+app.get('/logout',(req,res)=>{
+    console.log('logging out')
+    req.session.destroy()
+    res.redirect('/login')
 })
+
+app.use(require('./app/routes/login.route'))
+app.use(require('./app/routes/doctors.route'))
+app.use(require('./app/routes/patients.route'))
+
 
 const PORT = process.env.PORT || 8080
 
