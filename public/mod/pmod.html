@@ -1,14 +1,37 @@
 <html>
 <head>
     <title>Modify Patient Profile</title>
+    <script src="https://kit.fontawesome.com/fe7d951426.js" crossorigin="anonymous"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><i class="fas fa-clinic-medical"></i> Hotel Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse pr-5" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dlist">Doctors <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/plist">Patients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/alist">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <table class="table table-bordered">
-        
         <tr bgcolor=red>
             <td>
                 <font size=4 color=white>Edit Patient
@@ -18,7 +41,7 @@
         <form name=fpmod id='form' method=post>
             <tr>
                 <td>
-                    <table width=750 cellspacing=0 cellpadding=5>
+                    <table width=1000 cellspacing=0 cellpadding=5>
                         <tr>
                             <td>Doctor Name</td>
                             <td><input type=text id='pname' name=name size=30 maxlength=30 value=''></td>
@@ -36,7 +59,7 @@
             </tr>
             <tr>
                 <td colspan=2 align=center><input type=hidden name=rno value="">
-                    <input type=submit value=Submit>
+                    <input type=submit class='btn btn-primary' value=Submit>
                 </td>
             </tr>
         </form>
