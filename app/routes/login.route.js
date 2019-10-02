@@ -17,6 +17,9 @@ router.get('/plist', (req, res) => {
 })
 
 router.get('/alist', (req, res) => {
+    if (!req.session.userId) {
+        return res.sendFile(path.resolve(__dirname, '../../public/login.html'))
+    }
     res.sendFile(path.resolve(__dirname,'../../public/alist.html'))
 })
 
@@ -24,14 +27,9 @@ router.get('/login', (req, res) => {
     res.sendFile(path.resolve(__dirname,'../../public/login.html'))
 })
 
-const fakeCreds = {
-    email: 'a@a.a',
-    password: 'aaaaaaaa'
-}
 router.post('/login', (req, res, next) => {
     sql.query('SELECT * FROM users',(error, response)=>{
         if (error) throw error
-        console.log(response)
         const user = response.find(obj=>obj.email===req.body.email)
         if(!user){
             return res.sendFile(path.resolve(__dirname,'../../public/errors/e404.html'))
