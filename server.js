@@ -25,6 +25,9 @@ app.use(session({
 }));
 
 app.get('/',(req,res)=>{
+    if (!req.session.userId){
+        return res.redirect('/login')
+    }
     sql.query('SELECT * FROM users;',(error, response)=>{
         console.log(error)
         res.send(response + 'hello')
@@ -40,6 +43,7 @@ app.get('/logout',(req,res)=>{
 app.use(require('./app/routes/login.route'))
 app.use(require('./app/routes/doctors.route'))
 app.use(require('./app/routes/patients.route'))
+app.use(require('./app/routes/appointments.route'))
 
 
 const PORT = process.env.PORT || 8080

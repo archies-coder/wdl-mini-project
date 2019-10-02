@@ -1,6 +1,4 @@
-
 <html>
-
 <head>
     <title>HOSPITAL MANAGEMENT SYSTEM</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
@@ -15,13 +13,13 @@
         </button>
         <div class="collapse navbar-collapse pr-5" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/dlist">Doctors <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/plist">Patients</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/alist">Appointments</a>
                 </li>
                 <li class="nav-item">
@@ -30,22 +28,25 @@
             </ul>
         </div>
     </nav>
-    <table  class="table table-bordered">
+    <table class="table table-bordered">
         <tr bgcolor=red>
             <td>
-                <font size=4 color=white>Doctors
+                <font size=4 color=white>Appointments
                     List</font>
-                    <a href='dadd.html' class='btn btn-primary btn-sm float-right'>Add New Record</a>
+                    <a href='app.html' class='btn btn-info btn-sm float-right'>Add New Appointments</a>
             </td>
         </tr>
         <tr>
             <td>
-                <table width=1000 cellspacing=0 cellpadding=5 id='docList'>
+                <table width=1200 cellspacing=0 cellpadding=5 id='appList'>
                     <tr bgcolor=#ccccc>
                         <td align=center>S No</td>
+                        <td align=center>Patient
+                            Name</td>
                         <td align=center>Doctor
                             Name</td>
-                        <td align=center>Specialization</td>
+                        <td align=center>Time</td>
+                        <td align=center>Date</td>
                         <td align=center>Options</td>
                     </tr>
                 </table>
@@ -64,53 +65,40 @@
         </tr>
         <tr>
             <td>
-                <table width=1000 cellspacing=0 cellpadding=5 id='docListDeleted'>
+                <table width=1200 cellspacing=0 cellpadding=5>
                     <tr bgcolor=#ccccc>
                         <td align=center>S No</td>
+                        <td align=center>Patient
+                            Name</td>
                         <td align=center>Doctor
                             Name</td>
-                        <td align=center>Specialization</td>
+                        <td align=center>Time</td>
+                        <td align=center>Date</td>
+                        <td align=center>Options</td>
                     </tr>
-                    
                 </table>
             </td>
         </tr>
     </table>
-    <script>
-        let tableEl = document.getElementById('docList')
-        let tableDeletedEl = document.getElementById('docListDeleted')
-        let doctors = []
-        fetch('/doctors',{
+</body>
+<script>
+    let tableEl = document.getElementById('appList')
+        fetch('/appts', {
             method: 'GET',
             mode: 'cors'
-        }).then(res=>{
+        }).then(res => {
             return res.json()
-        }).then(doc=>{
-            doc.map(d=>{
+        }).then(doc => {
+            doc.map(a => {
                 const tr = document.createElement('tr')
-                tr.setAttribute('class',`${d.dno}`)
-                tr.innerHTML = `<td align=center>${d.dno}</td>
-                        <td align=center>${d.dname}</td>
-                        <td align=center>${d.dspec}</td>
-                        <td align=center><a href='/dmod/${d.dno}' >Modify</a> | 
-                            <a href='/doctors/delete/${d.dno}'>Delete</a></td>`
+                tr.innerHTML = `<td align=center>${a.ano}</td>
+                        <td align=center>${a.apatient}</td>
+                        <td align=center>${a.adoctor}</td>
+                        <td align=center>${a.atime}</td>
+                        <td align=center>${a.adate}</td>
+                        <td align=center><a href='/amod.html'>Modify</a></td>`
                 tableEl.appendChild(tr)
             })
         })
-        fetch('/doctors/deleted',{
-            method: 'GET',
-        }).then(res=>{
-            return res.json()
-        }).then(doc=>{
-            doc.map(d=>{
-                const tr = document.createElement('tr')
-                tr.setAttribute('class',`${d.dno}`)
-                tr.innerHTML = `<td align=center>${d.dno}</td>
-                        <td align=center>${d.dname}</td>
-                        <td align=center>${d.dspec}</td>`
-                tableDeletedEl.appendChild(tr)
-            })
-        })
-    </script>
-</body>
+</script>
 </html>

@@ -65,14 +65,13 @@
         </tr>
         <tr>
             <td>
-                <table width=1200 cellspacing=0 cellpadding=5>
+                <table width=1200 cellspacing=0 cellpadding=5 id='patListDeleted'>
                     <tr bgcolor=#ccccc>
                         <td align=center>S No</td>
                         <td align=center>Patient
                             Name</td>
                         <td align=center>Address</td>
                         <td align=center>sex</td>
-                        <td align=center>Options</td>
                     </tr>
 
                 </table>
@@ -81,6 +80,7 @@
     </table>
     <script>
         let tableEl = document.getElementById('patList')
+        let tableElDeleted = document.getElementById('patListDeleted')
         fetch('/patients', {
             method: 'GET',
         }).then(res => {
@@ -89,14 +89,33 @@
             console.log(doc)
             doc.map(p => {
                 const tr = document.createElement('tr')
+                tr.setAttribute('class', `${p.pno}`)
                 tr.innerHTML = `<td align=center>${p.pno}</td>
                         <td align=center>${p.pname}</td>
                         <td align=center>${p.paddr}</td>
                         <td align=center>${p.psex}</td>
-                        <td align=center><a href='/dmod.html'>Modify</a></td>`
+                        <td align=center><a href='/pmod/${p.pno}'>Modify</a> 
+                            | <a href='/patients/delete/${p.pno}'>Delete</a></td>`
                 tableEl.appendChild(tr)
             })
         })
+        fetch('/patients/deleted', {
+                method: 'GET',
+            }).then(res => {
+                return res.json()
+            }).then(doc => {
+                if(doc.length !== 0){
+                    doc.map(p => {
+                        const tr = document.createElement('tr')
+                        tr.setAttribute('class', `${p.pno}`)
+                        tr.innerHTML = `<td align=center>${p.pno}</td>
+                            <td align=center>${p.pname}</td>
+                            <td align=center>${p.paddr}</td>
+                            <td align=center>${p.psex}</td>`
+                        tableElDeleted.appendChild(tr)
+                    })
+                }
+            })
     </script>
 </body>
 
