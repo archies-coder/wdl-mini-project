@@ -22,7 +22,6 @@ app.use(bodyparser.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
-// const sessionStore = new MySQLStore({},client);
 const options = {
     url: dbURI,
     ttl: 365 * 24 * 60 * 60,

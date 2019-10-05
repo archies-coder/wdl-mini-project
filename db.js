@@ -1,9 +1,4 @@
-// const mysql = require('mysql')
-// const options = require('./app/config/keys')
 const { Client } = require('pg');
-
-// const client = mysql.createConnection(options)
-
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
