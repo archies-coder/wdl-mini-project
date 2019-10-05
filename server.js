@@ -1,18 +1,28 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const mysql = require('mysql')
-const sql = require('./db')
+// const sql = require('./db')
 const options = require('./app/config/keys')
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const path = require('path')
+const { Client } = require('pg');
 
-const app = express();
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
+
+client.connect(err=>{
+    throw err;
+});
+
+const app = express();      
 app.use(bodyparser.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
-const sessionStore = new MySQLStore({},sql);
+const sessionStore = new MySQLStore({},client);
 app.use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
@@ -25,10 +35,10 @@ app.use(session({
 }));
 
 app.get('/',(req,res)=>{
-    if (!req.session.userId){
-        return res.redirect('/login')
-    }
-    sql.query('SELECT * FROM users;',(error, response)=>{
+    // if (!req.session.userId){
+    //     return res.redirect('/login')
+    // }
+    client.query('SELECT * FROM users;',(error, response)=>{
         console.log(error)
         res.send(response + 'hello')
     })
