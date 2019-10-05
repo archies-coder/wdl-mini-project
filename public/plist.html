@@ -88,7 +88,7 @@
             return res.json()
         }).then(doc => {
             console.log(doc)
-            doc.map(p => {
+            doc.rows.map(p => {
                 const tr = document.createElement('tr')
                 tr.setAttribute('class', `${p.pno}`)
                 tr.innerHTML = `<td align=center>${p.pno}</td>
@@ -105,8 +105,9 @@
             }).then(res => {
                 return res.json()
             }).then(doc => {
+                console.log(doc)
                 if(doc.length !== 0){
-                    doc.map(p => {
+                    doc.rows.map(p => {
                         const tr = document.createElement('tr')
                         tr.setAttribute('class', `${p.pno}`)
                         tr.innerHTML = `<td align=center>${p.pno}</td>

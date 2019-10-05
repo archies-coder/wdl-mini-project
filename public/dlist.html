@@ -87,7 +87,8 @@
         }).then(res=>{
             return res.json()
         }).then(doc=>{
-            doc.map(d=>{
+            console.log(doc)
+            doc.rows.map(d=>{
                 const tr = document.createElement('tr')
                 tr.setAttribute('class',`${d.dno}`)
                 tr.innerHTML = `<td align=center>${d.dno}</td>
@@ -103,7 +104,7 @@
         }).then(res=>{
             return res.json()
         }).then(doc=>{
-            doc.map(d=>{
+            doc.rows.map(d=>{
                 const tr = document.createElement('tr')
                 tr.setAttribute('class',`${d.dno}`)
                 tr.innerHTML = `<td align=center>${d.dno}</td>

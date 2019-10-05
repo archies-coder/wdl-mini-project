@@ -75,14 +75,14 @@
         const selectPat = document.getElementById('patientSelect')
         const selectDoc = document.getElementById('doctorSelect')
         fetch('/patients').then(res=>res.json()).then(doc=>{
-            doc.map(p=>{
+            doc.rows.map(p=>{
                 let option = document.createElement('option')
                 option.innerHTML = `${p.pno}`
                 selectPat.appendChild(option)
             })
         })
         fetch('/doctors').then(res=>res.json()).then(doc=>{
-            doc.map(d=>{
+            doc.rows.map(d=>{
                 let option = document.createElement('option')
                 option.innerHTML = `${d.dno}`
                 selectDoc.appendChild(option)

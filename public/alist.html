@@ -90,7 +90,7 @@
         }).then(res => {
             return res.json()
         }).then(doc => {
-            doc.map(a => {
+            doc.rows.map(a => {
                 const tr = document.createElement('tr')
                 tr.innerHTML = `<td align=center>${a.ano}</td>
                         <td align=center>${a.apatient}</td>
@@ -107,7 +107,7 @@
                 return res.json()
             }).then(doc => {
                 if(doc.length!==0){
-                    doc.map(a => {
+                    doc.rows.map(a => {
                         const tr = document.createElement('tr')
                         tr.setAttribute('class', `${a.ano}`)
                         tr.innerHTML = `<td align=center>${a.ano}</td>
