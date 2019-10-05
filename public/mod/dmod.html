@@ -9,7 +9,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><i class="fas fa-clinic-medical"></i> Hotel Management System</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-clinic-medical"></i> Hospital Management System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -58,13 +58,6 @@
                 </td>
             </tr>
         </form>
-        <!-- <tr>
-            <td align=center>
-                <font size=4 color=red>Records
-                    Not Found</font>
-            </td>
-        </tr> -->
-
     </table>
     <script>
         const id = document.URL.split('dmod/')[1]
@@ -72,7 +65,7 @@
         const dspecIp = document.getElementById('dspec')
         const form = document.getElementById('form')
         fetch('/doctor/'+id).then(res=>res.json()).then(doc=>{
-            doc.map(d=>{
+            doc.rows.map(d=>{
                 dnameIp.value = d.dname
                 dspecIp.value = d.dspec
             })
