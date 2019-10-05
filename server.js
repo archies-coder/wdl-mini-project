@@ -44,16 +44,16 @@ app.get('/',(req,res)=>{
     })
 })
 
-app.get('/logout',(req,res)=>{
-    console.log('logging out')
-    req.session.destroy()
-    res.redirect('/login')
-})
+// app.get('/logout',(req,res)=>{
+//     console.log('logging out')
+//     req.session.destroy()
+//     res.redirect('/login')
+// })
 
-app.use(require('./app/routes/login.route'))
-app.use(require('./app/routes/doctors.route'))
-app.use(require('./app/routes/patients.route'))
-app.use(require('./app/routes/appointments.route'))
+// app.use(require('./app/routes/login.route'))
+// app.use(require('./app/routes/doctors.route'))
+// app.use(require('./app/routes/patients.route'))
+// app.use(require('./app/routes/appointments.route'))
 
 
 const PORT = process.env.PORT || 8080
