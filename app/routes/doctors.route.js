@@ -59,7 +59,7 @@ router.post('/doctors',(req,res,next)=>{
     }
     const {name, spec} = req.body;
     sql.query(`SELECT dname from doct WHERE dname = '${name}';`,(err,result)=>{
-        if(result.length === 0) {
+        if(result.rows.length === 0) {
             sql.query(`INSERT INTO doct (dname,dspec) VALUES('${name}', '${spec}');`,err=>{
                 if (err) throw err;
                 res.redirect('/dlist')
