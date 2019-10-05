@@ -22,7 +22,7 @@ router.post('/appts', (req,res)=>{
     }
     const { patId, docId, time, date } = req.body;
     sql.query(`SELECT apatient from appt WHERE apatient = '${patId}';`, (err, result) => {
-        if (result.length === 0) {
+        if (result.rows.length === 0) {
             sql.query(`INSERT INTO appt (adoctor, apatient, atime, adate) VALUES('${docId}', '${patId}','${time}','${date}');`, err => {
                 if (err) throw err;
                 res.redirect('/alist')
