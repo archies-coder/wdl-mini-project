@@ -38,17 +38,19 @@ client.connect( (err) => {
         psex varchar(1) NOT NULL,
         pshow varchar(1) NOT NULL DEFAULT 'Y',
         PRIMARY KEY (pno)
-    );`, err=>{ if (err) throw err })
+    );`,err=>{ 
+        if (err) throw err 
+    })
 
-    // client.query(`CREATE TABLE IF NOT EXISTS appt (
-    //     ano SERIAL,
-    //     adoctor int(11) NOT NULL,
-    //     apatient int(11) NOT NULL,
-    //     atime varchar(11) NOT NULL,
-    //     ashow varchar(1) NOT NULL DEFAULT 'Y',
-    //     adate date NOT NULL,
-    //     PRIMARY KEY (ano)
-    // );`, err=>{ if (err) throw err })
+    client.query(`CREATE TABLE IF NOT EXISTS appt (
+        ano SERIAL,
+        adoctor integer NOT NULL,
+        apatient integer NOT NULL,
+        atime varchar(11) NOT NULL,
+        ashow varchar(1) NOT NULL DEFAULT 'Y',
+        adate date NOT NULL,
+        PRIMARY KEY (ano)
+    );`, err=>{ if (err) throw err })
     })
     
 module.exports = client
