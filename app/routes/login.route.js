@@ -30,18 +30,17 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     sql.query('SELECT * FROM users',(error, rows, fields)=>{
         if (error) throw error
-        console.log(rows.rows[0])
+        const user = rows.rows.find(obj=>obj.email===req.body.email)
+        console.log(user)
+        if(!user){
+            return res.sendFile(path.resolve(__dirname,'../../public/errors/e404.html'))
+        }
+        if(req.body.password!==user.password){
+            return res.sendFile(path.resolve(__dirname, '../../public/errors/e400.html'))
+        }
+        req.session.userId = user.id
+        req.session.user = user
         res.redirect('/dlist')
-        // const user = response.find(obj=>obj.email===req.body.email)
-        // if(!user){
-        //     return res.sendFile(path.resolve(__dirname,'../../public/errors/e404.html'))
-        // }
-        // if(req.body.password!==user.password){
-        //     return res.sendFile(path.resolve(__dirname, '../../public/errors/e400.html'))
-        // }
-        // req.session.userId = user.id
-        // req.session.user = user
-        // res.redirect('/dlist')
     })
 })
 
