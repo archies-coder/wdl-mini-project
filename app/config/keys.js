@@ -1,4 +1,4 @@
-const dbURI = 'mongodb+srv://archisbhoir:archibhoir@cluster0-rb0ez.mongodb.net/admin?retryWrites=true&w=majority'
+const dbURI = 'mongodb://archisbhoir:archibhoir123@ds229068.mlab.com:29068/wdl-mini-project'
 const SECRET = 'sjvbhfsvdsmcidscsnkcjdspdsjkvdlpscdsmvlds[vldmvkldsdmklvm'
 module.exports = {
     dbURI,
