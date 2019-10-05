@@ -20,17 +20,17 @@ app.use(bodyparser.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
-const sessionStore = new MySQLStore({},client);
-app.use(session({
-    key: 'session_cookie_name',
-    secret: 'session_cookie_secret',
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge : 365*24*60*60*1000
-    }
-}));
+// const sessionStore = new MySQLStore({},client);
+// app.use(session({
+//     key: 'session_cookie_name',
+//     secret: 'session_cookie_secret',
+//     store: sessionStore,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//         maxAge : 365*24*60*60*1000
+//     }
+// }));
 
 app.get('/',(req,res)=>{
     // if (!req.session.userId){
