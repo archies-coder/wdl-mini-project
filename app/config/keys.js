@@ -1,10 +1,6 @@
-const options = {
-    host: "localhost",
-    port: 3306,
-    user: 'root',
-    password: 'rootadmin123',
-    database: 'test1',
-    insecureAuth: true
+const dbURI = 'mongodb+srv://archisbhoir:archibhoir@cluster0-rb0ez.mongodb.net/admin?retryWrites=true&w=majority'
+const SECRET = 'sjvbhfsvdsmcidscsnkcjdspdsjkvdlpscdsmvlds[vldmvkldsdmklvm'
+module.exports = {
+    dbURI,
+    SECRET
 }
-
-module.exports = options
