@@ -13,15 +13,15 @@ const client = new Client({
     ssl: true,
 });
 
-client.connect(err=>{
-    throw err;
-});
 
 const app = express();      
 app.use(bodyparser.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
+client.connect(err=>{
+    throw err;
+});
 // const sessionStore = new MySQLStore({},client);
 // app.use(session({
 //     key: 'session_cookie_name',
