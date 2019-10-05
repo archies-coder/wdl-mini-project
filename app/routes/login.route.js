@@ -30,11 +30,6 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     sql.query('SELECT * FROM users',(error, response)=>{
         if (error) throw error
-        response.map(u=>{
-            console.log('----------------------')
-            console.log(u.email)
-            console.log('----------------------')
-        })
         const user = response.find(obj=>obj.email===req.body.email)
         if(!user){
             return res.sendFile(path.resolve(__dirname,'../../public/errors/e404.html'))

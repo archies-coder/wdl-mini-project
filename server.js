@@ -43,9 +43,6 @@ app.get('/',(req,res)=>{
     //     return res.redirect('/login')
     // }
     sql.query('SELECT * FROM users;',(error, response)=>{
-        console.log(response.map(u=>{
-            console.log(u)
-        }))
         res.send(response)
     })
 })
