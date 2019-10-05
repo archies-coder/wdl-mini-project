@@ -30,7 +30,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res, next) => {
     sql.query('SELECT * FROM users',(error, rows, fields)=>{
         if (error) throw error
-        console.log(rows.map())
+        console.log(rows.rows[0])
         res.redirect('/dlist')
         // const user = response.find(obj=>obj.email===req.body.email)
         // if(!user){
