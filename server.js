@@ -39,12 +39,10 @@ app.use(session({
 }));
 
 app.get('/',(req,res)=>{
-    // if (!req.session.userId){
-    //     return res.redirect('/login')
-    // }
-    sql.query('SELECT * FROM users;',(error, response)=>{
-        res.send(response)
-    })
+    if (!req.session.userId){
+        return res.redirect('/login')
+    }
+    return res.redirect('/dlist')
 })
 
 app.get('/logout',(req,res)=>{
