@@ -8,13 +8,6 @@ const MongoStore = require('connect-mongo')(session);
 const path = require('path')
 const mongoose = require('mongoose')
 
-// const { Client } = require('pg');
-
-// const client = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-// });
-
 mongoose.connect(dbURI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -23,7 +16,6 @@ mongoose.connect(dbURI, {
 }, ()=>{
     console.log('connected to mongo database')
 })
-
 
 const app = express();      
 app.use(bodyparser.json())
@@ -47,10 +39,13 @@ app.use(session({
 }));
 
 app.get('/',(req,res)=>{
-    if (!req.session.userId){
-        return res.redirect('/login')
-    }
+    // if (!req.session.userId){
+    //     return res.redirect('/login')
+    // }
     sql.query('SELECT * FROM users;',(error, response)=>{
+        console.log(response.map(u=>{
+            console.log(u)
+        }))
         res.send(response)
     })
 })
