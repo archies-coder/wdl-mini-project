@@ -1,52 +1,54 @@
 // const mysql = require('mysql')
 // const options = require('./app/config/keys')
+const { Client } = require('pg');
 
-// const connection = mysql.createConnection(options)
+// const client = mysql.createConnection(options)
 
 
-// connection.connect( (err) => {
-//     if (err) throw err
-//     console.log('You are now connected...')
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+});
 
-//     connection.query(`create table if not exists users(
-//             id INT AUTO_INCREMENT,
-//             email VARCHAR(255),
-//             password VARCHAR(255),
-//             PRIMARY KEY(id)
-//         );`, err=>{ if (err) throw err })
+client.connect( (err) => {
+    if (err) throw err
+    console.log('You are now connected...')
+
+    client.query(`create table if not exists users(
+            id SERIAL,
+            email VARCHAR(255),
+            password VARCHAR(255),
+            PRIMARY KEY(id)
+        );`, err=>{ if (err) throw err })
         
-//     connection.query(`CREATE TABLE IF NOT EXISTS doct (
-//         dno int(11) NOT NULL AUTO_INCREMENT,
-//         dname varchar(30) NOT NULL,
-//         dspec varchar(30) NOT NULL,
-//         dshow varchar(1) NOT NULL DEFAULT 'Y',
-//         PRIMARY KEY (dno),
-//         UNIQUE(dname)
-//     );`,(err)=>{
-//         if (err) throw err
-//     })
+    client.query(`CREATE TABLE IF NOT EXISTS doct (
+        dno SERIAL,
+        dname varchar(30) NOT NULL,
+        dspec varchar(30) NOT NULL,
+        dshow varchar(1) NOT NULL DEFAULT 'Y',
+        PRIMARY KEY (dno)
+    );`,(err)=>{
+        if (err) throw err
+    })
 
-//     connection.query(`CREATE TABLE IF NOT EXISTS patient (
-//         pno int(11) NOT NULL AUTO_INCREMENT,
-//         pname varchar(30) NOT NULL,
-//         paddr varchar(30) NOT NULL,
-//         psex varchar(1) NOT NULL,
-//         pshow varchar(1) NOT NULL DEFAULT 'Y',
-//         UNIQUE(pname),
-//         PRIMARY KEY (pno)
-//     );`, err=>{ if (err) throw err })
+    client.query(`CREATE TABLE IF NOT EXISTS patient (
+        pno SERIAL,
+        pname varchar(30) NOT NULL,
+        paddr varchar(30) NOT NULL,
+        psex varchar(1) NOT NULL,
+        pshow varchar(1) NOT NULL DEFAULT 'Y',
+        PRIMARY KEY (pno)
+    );`, err=>{ if (err) throw err })
 
-//     connection.query(`CREATE TABLE IF NOT EXISTS appt (
-//         ano int(11) NOT NULL AUTO_INCREMENT,
-//         adoctor int(11) NOT NULL,
-//         apatient int(11) NOT NULL,
-//         atime varchar(11) NOT NULL,
-//         ashow varchar(1) NOT NULL DEFAULT 'Y',
-//         adate date NOT NULL,
-//         UNIQUE(adoctor),
-//         PRIMARY KEY (ano)
-//     );`, err=>{ if (err) throw err })
-//     })
+    client.query(`CREATE TABLE IF NOT EXISTS appt (
+        ano SERIAL,
+        adoctor int(11) NOT NULL,
+        apatient int(11) NOT NULL,
+        atime varchar(11) NOT NULL,
+        ashow varchar(1) NOT NULL DEFAULT 'Y',
+        adate date NOT NULL,
+        PRIMARY KEY (ano)
+    );`, err=>{ if (err) throw err })
+    })
     
-
-// module.exports = connection
+module.exports = client
